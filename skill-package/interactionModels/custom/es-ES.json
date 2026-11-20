@@ -1,0 +1,357 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "stremio",
+      "intents": [
+        {
+          "name": "SearchMediaIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "busca {query}",
+            "buscar {query}",
+            "pon {query}",
+            "quiero ver {query}",
+            "encuentra {query}",
+            "búscame {query}"
+          ]
+        },
+        {
+          "name": "GoHomeIntent",
+          "slots": [],
+          "samples": [
+            "ve al inicio",
+            "inicio",
+            "pantalla principal",
+            "catálogo",
+            "ir al inicio",
+            "vuelve al inicio"
+          ]
+        },
+        {
+          "name": "OpenSearchIntent",
+          "slots": [],
+          "samples": [
+            "abre el buscador",
+            "buscador",
+            "ir al buscador",
+            "quiero buscar"
+          ]
+        },
+        {
+          "name": "SelectSeasonIntent",
+          "slots": [
+            {
+              "name": "season",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "temporada {season}",
+            "ve a la temporada {season}",
+            "abre la temporada {season}",
+            "pon la temporada {season}"
+          ]
+        },
+        {
+          "name": "PlayEpisodeIntent",
+          "slots": [
+            {
+              "name": "season",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "episode",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "pon el episodio {episode}",
+            "episodio {episode}",
+            "capítulo {episode}",
+            "pon el capítulo {episode}",
+            "temporada {season} episodio {episode}",
+            "temporada {season} capítulo {episode}",
+            "pon la temporada {season} episodio {episode}"
+          ]
+        },
+        {
+          "name": "NextEpisodeIntent",
+          "slots": [],
+          "samples": [
+            "siguiente episodio",
+            "pon el siguiente capítulo",
+            "pon el siguiente episodio",
+            "próximo episodio",
+            "siguiente capítulo"
+          ]
+        },
+        {
+          "name": "SeekIntent",
+          "slots": [
+            {
+              "name": "direction",
+              "type": "SeekDirection"
+            },
+            {
+              "name": "amount",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "unit",
+              "type": "TimeUnit"
+            }
+          ],
+          "samples": [
+            "{direction} {amount} {unit}",
+            "{direction} el vídeo {amount} {unit}",
+            "{direction} {amount}"
+          ]
+        },
+        {
+          "name": "ChangeSubtitleIntent",
+          "slots": [
+            {
+              "name": "language",
+              "type": "SubtitleLanguage"
+            }
+          ],
+          "samples": [
+            "pon subtítulos en {language}",
+            "subtítulos {language}",
+            "subtítulos en {language}",
+            "cambia subtítulos a {language}",
+            "cambia los subtítulos a {language}"
+          ]
+        },
+        {
+          "name": "DisableSubtitleIntent",
+          "slots": [],
+          "samples": [
+            "quita los subtítulos",
+            "desactiva los subtítulos",
+            "sin subtítulos",
+            "apaga los subtítulos"
+          ]
+        },
+        {
+          "name": "SwitchStreamIntent",
+          "slots": [],
+          "samples": [
+            "cambia de stream",
+            "cambia el audio",
+            "otra fuente",
+            "ver fuentes",
+            "cambiar fuente"
+          ]
+        },
+        {
+          "name": "RefreshAddonsIntent",
+          "slots": [],
+          "samples": [
+            "actualiza addons",
+            "sincroniza mi cuenta",
+            "recarga stremio",
+            "sincronizar addons"
+          ]
+        },
+        {
+          "name": "LogoutIntent",
+          "slots": [],
+          "samples": [
+            "cerrar sesión",
+            "desconectar cuenta",
+            "cierra sesión"
+          ]
+        },
+        {
+          "name": "GoBackIntent",
+          "slots": [],
+          "samples": [
+            "volver",
+            "atrás",
+            "regresar",
+            "vuelve atrás"
+          ]
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StartOverIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "SeekDirection",
+          "values": [
+            {
+              "id": "forward",
+              "name": {
+                "value": "adelanta",
+                "synonyms": [
+                  "adelantar",
+                  "avanza",
+                  "avanzar",
+                  "salta"
+                ]
+              }
+            },
+            {
+              "id": "backward",
+              "name": {
+                "value": "retrocede",
+                "synonyms": [
+                  "retroceder",
+                  "atrasa",
+                  "atrasar",
+                  "rebobina"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TimeUnit",
+          "values": [
+            {
+              "id": "seconds",
+              "name": {
+                "value": "segundos",
+                "synonyms": [
+                  "segundo"
+                ]
+              }
+            },
+            {
+              "id": "minutes",
+              "name": {
+                "value": "minutos",
+                "synonyms": [
+                  "minuto"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "SubtitleLanguage",
+          "values": [
+            {
+              "id": "spa",
+              "name": {
+                "value": "español",
+                "synonyms": [
+                  "castellano",
+                  "español latino",
+                  "latino"
+                ]
+              }
+            },
+            {
+              "id": "eng",
+              "name": {
+                "value": "inglés",
+                "synonyms": [
+                  "ingles",
+                  "english"
+                ]
+              }
+            },
+            {
+              "id": "fre",
+              "name": {
+                "value": "francés",
+                "synonyms": [
+                  "frances"
+                ]
+              }
+            },
+            {
+              "id": "ger",
+              "name": {
+                "value": "alemán",
+                "synonyms": [
+                  "aleman"
+                ]
+              }
+            },
+            {
+              "id": "jpn",
+              "name": {
+                "value": "japonés",
+                "synonyms": [
+                  "japones"
+                ]
+              }
+            },
+            {
+              "id": "por",
+              "name": {
+                "value": "portugués",
+                "synonyms": [
+                  "portugues"
+                ]
+              }
+            },
+            {
+              "id": "ita",
+              "name": {
+                "value": "italiano"
+              }
+            },
+            {
+              "id": "off",
+              "name": {
+                "value": "desactivar",
+                "synonyms": [
+                  "ninguno",
+                  "ningunos",
+                  "quitar"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+node_modules/
+lambda/node_modules/
+lambda/dist/
+.aws-sam/
+.ask/
+.aws/
+.env
+.env.*
+*.zip
+*.pem
+*.key
+credentials
+aws-exports.*
+coverage/
+.DS_Store
+samconfig.toml.bak

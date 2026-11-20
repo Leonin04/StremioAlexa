@@ -1,0 +1,80 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: StremioAlexa - Skill privada de Alexa con APL 2024.2 para Echo Show
+
+Parameters:
+  AlexaSkillId:
+    Type: String
+    Default: ""
+    Description: "(Opcional) ID de tu Alexa Skill (amzn1.ask.skill...) para restringir quién puede invocar la Lambda"
+
+Conditions:
+  HasSkillId: !Not [!Equals [!Ref AlexaSkillId, ""]]
+
+Globals:
+  Function:
+    Timeout: 15
+    MemorySize: 512
+    Runtime: nodejs20.x
+    Architectures:
+      - arm64
+
+Resources:
+  StremioAlexaTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-data"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  StremioAlexaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${AWS::StackName}-handler"
+      CodeUri: lambda/
+      Handler: dist/index.handler
+      Description: Backend TypeScript de la skill Stremio para Echo Show
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref StremioAlexaTable
+          NODE_OPTIONS: --enable-source-maps
+      Policies:
+        - Statement:
+            - Sid: DynamoDbLeastPrivilegeAccess
+              Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+                - dynamodb:DeleteItem
+              Resource: !GetAtt StremioAlexaTable.Arn
+
+  AlexaSkillInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref StremioAlexaFunction
+      Action: lambda:InvokeFunction
+      Principal: alexa-appkit.amazon.com
+      EventSourceToken: !If [HasSkillId, !Ref AlexaSkillId, !Ref "AWS::NoValue"]
+
+Outputs:
+  LambdaFunctionArn:
+    Description: ARN de la función Lambda para configurar en skill-package/skill.json
+    Value: !GetAtt StremioAlexaFunction.Arn
+  DynamoDbTableName:
+    Description: Nombre de la tabla DynamoDB creada
+    Value: !Ref StremioAlexaTable
